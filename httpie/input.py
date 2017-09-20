@@ -149,7 +149,7 @@ class HTTPieArgumentParser(ArgumentParser):
         self._process_pretty_options()
         self._guess_method()
         self._parse_items()
-        if not self.args.ignore_stdin and not env.stdin_isatty:
+        if not self.args.ignore_stdin and (self.env.stdin and not self.env.stdin_isatty):
             self._body_from_file(self.env.stdin)
         if not URL_SCHEME_RE.match(self.args.url):
             scheme = self.args.default_scheme + "://"

@@ -23,7 +23,7 @@ class Environment(object):
     is_windows = is_windows
     config_dir = DEFAULT_CONFIG_DIR
     stdin = sys.stdin
-    stdin_isatty = stdin.isatty()
+    stdin_isatty = getattr(stdin, 'isatty', lambda: False)()
     stdin_encoding = None
     stdout = sys.stdout
     stdout_isatty = stdout.isatty()

@@ -345,3 +345,11 @@ class TestSchemes:
     def test_default_scheme(self, httpbin_secure):
         url = '{0}:{1}'.format(httpbin_secure.host, httpbin_secure.port)
         assert HTTP_OK in http(url, '--default-scheme=https')
+
+
+class TestClosedStdin:
+
+    def test_closed_stdin(self, httpbin):
+        env = TestEnvironment(stdin=None)
+        r = http(httpbin.url, env=env)
+        assert 'cannot be mixed' not in r.stderr
